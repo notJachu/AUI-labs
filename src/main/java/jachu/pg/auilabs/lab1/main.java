@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class main {
@@ -90,5 +92,41 @@ public class main {
             System.out.println(category);
             category.getElements().forEach(System.out::println);
         });
+
+
+
+        // Task 7
+        System.out.println("--- Task 7 ---");
+        long waitTime = 1000L;
+        ForkJoinPool forkJoinPool = new ForkJoinPool(2); // 2 workers
+
+        try {
+            forkJoinPool.submit(() ->
+                    categories.parallelStream()
+                            .forEach(cat -> processCategory(cat, waitTime))
+            ).join();
+        } finally {
+            forkJoinPool.shutdown();
+            try {
+                forkJoinPool.awaitTermination(5, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+
+    }
+
+    private static void processCategory(Category cat, long waitTime) {
+        cat.getElements().forEach(System.out::println);
+        try {
+            Thread.sleep(waitTime);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        System.out.println("Processed category: " + cat.getName());
     }
 }
+
+
+
+
