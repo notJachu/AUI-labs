@@ -1,8 +1,17 @@
 package jachu.pg.auilabs.lab1;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ElementDto {
 
-    String name;
-    int value;
-    String categoryName;
+    private String name;
+    private int value;
+    private String categoryName;
 }
