@@ -15,7 +15,24 @@ public class Category implements Comparable<Category>{
 
     @Builder.Default
     @ToString.Exclude
-    private List<Element> elemtns = new ArrayList<>();
+    private List<Element> elements = new ArrayList<>();
+
+    public void addElement(Element element) {
+        if (element == null) return;
+        if (!elements.contains(element)) {
+            elements.add(element);
+        }
+        if (element.getCategory() != this) {
+            element.setCategory(this);
+        }
+    }
+
+    public void removeElement(Element element) {
+        if (element == null) return;
+        if (elements.remove(element)) {
+            element.setCategory(null);
+        }
+    }
 
     @Override
     public int compareTo(Category o) {

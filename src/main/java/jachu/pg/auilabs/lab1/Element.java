@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
 public class Element implements Comparable<Element>{
     private String name;
@@ -14,16 +13,21 @@ public class Element implements Comparable<Element>{
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Category category = null;
+    private Category category;
+
 
     public void setCategory(Category category) {
-        if(this.category != null) {
-            this.category.getElemtns().remove(this);
-        }
         this.category = category;
-        if(category != null && !category.getElemtns().contains(this)) {
-            category.getElemtns().add(this);
+        if (category != null && !category.getElements().contains(this)) {
+            category.addElement(this);
         }
+    }
+
+    @Builder
+    public Element(String name, int value, Category category) {
+        this.name = name;
+        this.value = value;
+        setCategory(category);
     }
 
     public ElementDto toDto() {
