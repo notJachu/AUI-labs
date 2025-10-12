@@ -2,6 +2,7 @@ package jachu.pg.auilabs.lab1;
 
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Category implements Comparable<Category>{
+public class Category implements Comparable<Category>, Serializable {
     private String name;
     private int someValue;
 

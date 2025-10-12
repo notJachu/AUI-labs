@@ -4,10 +4,12 @@ package jachu.pg.auilabs.lab1;
 import lombok.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 
+import java.io.Serializable;
+
 @Data
 @Builder
 @NoArgsConstructor
-public class Element implements Comparable<Element>{
+public class Element implements Comparable<Element>, Serializable {
     private String name;
     private int value;
 
