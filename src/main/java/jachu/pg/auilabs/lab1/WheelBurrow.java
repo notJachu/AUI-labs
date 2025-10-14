@@ -2,16 +2,15 @@ package jachu.pg.auilabs.lab1;
 
 
 import lombok.*;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 
 import java.io.Serializable;
 
 @Data
 @Builder
 @NoArgsConstructor
-public class Element implements Comparable<Element>, Serializable {
+public class WheelBurrow implements Comparable<WheelBurrow>, Serializable {
     private String name;
-    private int value;
+    private int price;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
@@ -20,28 +19,28 @@ public class Element implements Comparable<Element>, Serializable {
 
     public void setCategory(Category category) {
         this.category = category;
-        if (category != null && !category.getElements().contains(this)) {
+        if (category != null && !category.getWheelBurrows().contains(this)) {
             category.addElement(this);
         }
     }
 
     @Builder
-    public Element(String name, int value, Category category) {
+    public WheelBurrow(String name, int price, Category category) {
         this.name = name;
-        this.value = value;
+        this.price = price;
         setCategory(category);
     }
 
     public ElementDto toDto() {
         return ElementDto.builder()
                 .name(this.name)
-                .value(this.value)
+                .value(this.price)
                 .categoryName(this.category != null ? this.category.getName() : null)
                 .build();
     }
 
     @Override
-    public int compareTo(Element o) {
+    public int compareTo(WheelBurrow o) {
         return this.name.compareTo(o.name);
     }
 }

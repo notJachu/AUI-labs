@@ -12,26 +12,26 @@ import java.util.List;
 @NoArgsConstructor
 public class Category implements Comparable<Category>, Serializable {
     private String name;
-    private int someValue;
+    private int carryWeight;
 
     @Builder.Default
     @ToString.Exclude
-    private List<Element> elements = new ArrayList<>();
+    private List<WheelBurrow> wheelBurrows = new ArrayList<>();
 
-    public void addElement(Element element) {
-        if (element == null) return;
-        if (!elements.contains(element)) {
-            elements.add(element);
+    public void addElement(WheelBurrow wheelBurrow) {
+        if (wheelBurrow == null) return;
+        if (!wheelBurrows.contains(wheelBurrow)) {
+            wheelBurrows.add(wheelBurrow);
         }
-        if (element.getCategory() != this) {
-            element.setCategory(this);
+        if (wheelBurrow.getCategory() != this) {
+            wheelBurrow.setCategory(this);
         }
     }
 
-    public void removeElement(Element element) {
-        if (element == null) return;
-        if (elements.remove(element)) {
-            element.setCategory(null);
+    public void removeElement(WheelBurrow wheelBurrow) {
+        if (wheelBurrow == null) return;
+        if (wheelBurrows.remove(wheelBurrow)) {
+            wheelBurrow.setCategory(null);
         }
     }
 

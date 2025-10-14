@@ -12,30 +12,30 @@ public class main {
     public static void main(String[] args) {
 
         Category category_one = Category.builder()
-                .name("cat1")
-                .someValue(4)
+                .name("Small")
+                .carryWeight(4)
                 .build();
 
         Category category_two = Category.builder()
-                .name("cat2")
-                .someValue(62)
+                .name("Large")
+                .carryWeight(62)
                 .build();
 
-        Element element_one = Element.builder()
-                .name("el1")
-                .value(5)
+        WheelBurrow wheelBurrow_one = WheelBurrow.builder()
+                .name("My first wheel burrow")
+                .price(5)
                 .category(category_one)
                 .build();
 
-        Element element_two = Element.builder()
-                .name("el2")
-                .value(15)
+        WheelBurrow wheelBurrow_two = WheelBurrow.builder()
+                .name("Wheel burrow for adults")
+                .price(15)
                 .category(category_two)
                 .build();
 
-        Element element_three = Element.builder()
-                .name("ml3")
-                .value(5)
+        WheelBurrow wheelBurrow_three = WheelBurrow.builder()
+                .name("Wheel burrow playset")
+                .price(5)
                 .category(category_one)
                 .build();
 
@@ -46,26 +46,26 @@ public class main {
 
         categories.forEach(category -> {
             System.out.println(category);
-            category.getElements().forEach(System.out::println);
+            category.getWheelBurrows().forEach(System.out::println);
         });
 
-        Set<Element> allElements = categories.stream()
-                .flatMap(cat -> cat.getElements().stream())
+        Set<WheelBurrow> allWheelBurrows = categories.stream()
+                .flatMap(cat -> cat.getWheelBurrows().stream())
                 .collect(Collectors.toSet());
 
-        allElements.stream().forEach(System.out::println);
+        allWheelBurrows.stream().forEach(System.out::println);
 
         // Task 4
         System.out.println("--- Task 4 ---");
-        allElements.stream()
-                .filter(element -> element.getValue() == 5)
+        allWheelBurrows.stream()
+                .filter(wheelBurrow -> wheelBurrow.getPrice() == 5)
                 .sorted()
                 .forEach(System.out::println);
 
         // Task 5
         System.out.println("--- Task 5 ---");
-        List<ElementDto> elementDtos = allElements.stream()
-                .map(Element::toDto)
+        List<ElementDto> elementDtos = allWheelBurrows.stream()
+                .map(WheelBurrow::toDto)
                 .toList();
 
         elementDtos.forEach(System.out::println);
@@ -90,7 +90,7 @@ public class main {
         }
         deserializedCategories.forEach(category -> {
             System.out.println(category);
-            category.getElements().forEach(System.out::println);
+            category.getWheelBurrows().forEach(System.out::println);
         });
 
 
@@ -117,7 +117,7 @@ public class main {
     }
 
     private static void processCategory(Category cat, long waitTime) {
-        cat.getElements().forEach(System.out::println);
+        cat.getWheelBurrows().forEach(System.out::println);
         try {
             Thread.sleep(waitTime);
         } catch (InterruptedException e) {
