@@ -16,22 +16,22 @@ public class Category implements Comparable<Category>, Serializable {
 
     @Builder.Default
     @ToString.Exclude
-    private List<WheelBurrow> wheelBurrows = new ArrayList<>();
+    private List<WheelBarrow> wheelBarrows = new ArrayList<>();
 
-    public void addElement(WheelBurrow wheelBurrow) {
-        if (wheelBurrow == null) return;
-        if (!wheelBurrows.contains(wheelBurrow)) {
-            wheelBurrows.add(wheelBurrow);
+    public void addElement(WheelBarrow wheelBarrow) {
+        if (wheelBarrow == null) return;
+        if (!wheelBarrows.contains(wheelBarrow)) {
+            wheelBarrows.add(wheelBarrow);
         }
-        if (wheelBurrow.getCategory() != this) {
-            wheelBurrow.setCategory(this);
+        if (wheelBarrow.getCategory() != this) {
+            wheelBarrow.setCategory(this);
         }
     }
 
-    public void removeElement(WheelBurrow wheelBurrow) {
-        if (wheelBurrow == null) return;
-        if (wheelBurrows.remove(wheelBurrow)) {
-            wheelBurrow.setCategory(null);
+    public void removeElement(WheelBarrow wheelBarrow) {
+        if (wheelBarrow == null) return;
+        if (wheelBarrows.remove(wheelBarrow)) {
+            wheelBarrow.setCategory(null);
         }
     }
 

@@ -21,20 +21,20 @@ public class main {
                 .carryWeight(62)
                 .build();
 
-        WheelBurrow wheelBurrow_one = WheelBurrow.builder()
-                .name("My first wheel burrow")
+        WheelBarrow wheelBarrow_one = WheelBarrow.builder()
+                .name("My first wheelbarrow")
                 .price(5)
                 .category(category_one)
                 .build();
 
-        WheelBurrow wheelBurrow_two = WheelBurrow.builder()
-                .name("Wheel burrow for adults")
+        WheelBarrow wheelBarrow_two = WheelBarrow.builder()
+                .name("Wheelbarrow for adults")
                 .price(15)
                 .category(category_two)
                 .build();
 
-        WheelBurrow wheelBurrow_three = WheelBurrow.builder()
-                .name("Wheel burrow playset")
+        WheelBarrow wheelBarrow_three = WheelBarrow.builder()
+                .name("Wheelbarrow playset")
                 .price(5)
                 .category(category_one)
                 .build();
@@ -46,26 +46,26 @@ public class main {
 
         categories.forEach(category -> {
             System.out.println(category);
-            category.getWheelBurrows().forEach(System.out::println);
+            category.getWheelBarrows().forEach(System.out::println);
         });
 
-        Set<WheelBurrow> allWheelBurrows = categories.stream()
-                .flatMap(cat -> cat.getWheelBurrows().stream())
+        Set<WheelBarrow> allWheelBarrows = categories.stream()
+                .flatMap(cat -> cat.getWheelBarrows().stream())
                 .collect(Collectors.toSet());
 
-        allWheelBurrows.stream().forEach(System.out::println);
+        allWheelBarrows.stream().forEach(System.out::println);
 
         // Task 4
         System.out.println("--- Task 4 ---");
-        allWheelBurrows.stream()
-                .filter(wheelBurrow -> wheelBurrow.getPrice() == 5)
+        allWheelBarrows.stream()
+                .filter(wheelBarrow -> wheelBarrow.getPrice() == 5)
                 .sorted()
                 .forEach(System.out::println);
 
         // Task 5
         System.out.println("--- Task 5 ---");
-        List<ElementDto> elementDtos = allWheelBurrows.stream()
-                .map(WheelBurrow::toDto)
+        List<ElementDto> elementDtos = allWheelBarrows.stream()
+                .map(WheelBarrow::toDto)
                 .toList();
 
         elementDtos.forEach(System.out::println);
@@ -90,7 +90,7 @@ public class main {
         }
         deserializedCategories.forEach(category -> {
             System.out.println(category);
-            category.getWheelBurrows().forEach(System.out::println);
+            category.getWheelBarrows().forEach(System.out::println);
         });
 
 
@@ -117,7 +117,7 @@ public class main {
     }
 
     private static void processCategory(Category cat, long waitTime) {
-        cat.getWheelBurrows().forEach(System.out::println);
+        cat.getWheelBarrows().forEach(System.out::println);
         try {
             Thread.sleep(waitTime);
         } catch (InterruptedException e) {

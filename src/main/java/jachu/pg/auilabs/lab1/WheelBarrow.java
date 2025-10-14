@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Data
 @Builder
 @NoArgsConstructor
-public class WheelBurrow implements Comparable<WheelBurrow>, Serializable {
+public class WheelBarrow implements Comparable<WheelBarrow>, Serializable {
     private String name;
     private int price;
 
@@ -19,13 +19,13 @@ public class WheelBurrow implements Comparable<WheelBurrow>, Serializable {
 
     public void setCategory(Category category) {
         this.category = category;
-        if (category != null && !category.getWheelBurrows().contains(this)) {
+        if (category != null && !category.getWheelBarrows().contains(this)) {
             category.addElement(this);
         }
     }
 
     @Builder
-    public WheelBurrow(String name, int price, Category category) {
+    public WheelBarrow(String name, int price, Category category) {
         this.name = name;
         this.price = price;
         setCategory(category);
@@ -40,7 +40,7 @@ public class WheelBurrow implements Comparable<WheelBurrow>, Serializable {
     }
 
     @Override
-    public int compareTo(WheelBurrow o) {
+    public int compareTo(WheelBarrow o) {
         return this.name.compareTo(o.name);
     }
 }
