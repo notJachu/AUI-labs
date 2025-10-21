@@ -1,19 +1,30 @@
 package jachu.pg.auilabs.lab1;
 
 
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Data
 @Builder
 @NoArgsConstructor
+@Entity
+@Table(name = "wheelbarrows")
 public class WheelBarrow implements Comparable<WheelBarrow>, Serializable {
+    @Id
+    private UUID uuid;
+
+    @Column(name = "wheelbarrow_name")
     private String name;
+    @Column(name = "price")
     private int price;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @ManyToOne
+    @JoinColumn(name = "category")
     private Category category;
 
 
