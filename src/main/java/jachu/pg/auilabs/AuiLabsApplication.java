@@ -16,12 +16,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @SpringBootApplication
-public class AuiLabsApplication implements CommandLineRunner {
+public class AuiLabsApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(AuiLabsApplication.class, args);
     }
-
+/*
     @Override
     public void run(String... args) throws Exception {
         // app starts here
@@ -140,4 +140,6 @@ public class AuiLabsApplication implements CommandLineRunner {
         System.out.println("Processed category: " + cat.getName());
 
     }
+
+ */
 }

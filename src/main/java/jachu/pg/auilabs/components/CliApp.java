@@ -27,6 +27,8 @@ public class CliApp implements CommandLineRunner {
             if (command.equals("pa")) {
                 System.out.println("Categories:");
                 categoryService.findAll().forEach(System.out::println);
+                System.out.println("Wheelbarrows:");
+                wheelBarrowService.findAll().forEach(System.out::println);
 
             }
         } catch (Exception e) {
