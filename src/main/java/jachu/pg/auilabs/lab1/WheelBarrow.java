@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.util.UUID;
 
 @Data
-@Builder
 @NoArgsConstructor
 @Entity
 @Table(name = "wheelbarrows")
