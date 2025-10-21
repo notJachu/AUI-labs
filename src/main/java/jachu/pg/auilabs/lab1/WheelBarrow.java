@@ -37,6 +37,7 @@ public class WheelBarrow implements Comparable<WheelBarrow>, Serializable {
 
     @Builder
     public WheelBarrow(String name, int price, Category category) {
+        this.uuid = UUID.randomUUID();
         this.name = name;
         this.price = price;
         setCategory(category);

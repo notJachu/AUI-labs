@@ -25,7 +25,7 @@ public class Category implements Comparable<Category>, Serializable {
 
     @Builder.Default
     @ToString.Exclude
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<WheelBarrow> wheelBarrows = new ArrayList<>();
 
     public void addElement(WheelBarrow wheelBarrow) {
