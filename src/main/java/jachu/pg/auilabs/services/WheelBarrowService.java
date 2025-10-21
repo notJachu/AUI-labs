@@ -1,0 +1,36 @@
+package jachu.pg.auilabs.services;
+
+import jachu.pg.auilabs.lab1.WheelBarrow;
+import jachu.pg.auilabs.repositories.ElementRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+@Service
+public class WheelBarrowService {
+    private final ElementRepository elementRepository;
+
+    @Autowired
+    public WheelBarrowService(ElementRepository elementRepository) {
+        this.elementRepository = elementRepository;
+    }
+
+    public List<WheelBarrow> findAll() {
+        return elementRepository.findAll();
+    }
+
+    public Optional<WheelBarrow> findById(UUID uuid) {
+        return elementRepository.findByUuid(uuid);
+    }
+
+    public WheelBarrow save(WheelBarrow wheelBarrow) {
+        return elementRepository.save(wheelBarrow);
+    }
+
+    public void deleteByUuid(UUID uuid) {
+        elementRepository.deleteById(uuid);
+    }
+}
