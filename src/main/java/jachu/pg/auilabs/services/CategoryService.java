@@ -38,4 +38,8 @@ public class CategoryService {
         categoryRepository.deleteById(uuid);
     }
 
+    public void deleteAll() {
+        categoryRepository.deleteAll();
+    }
+
 }
