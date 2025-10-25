@@ -19,23 +19,18 @@ public class CliApp implements CommandLineRunner {
 
     private final CategoryService categoryService;
     private final WheelBarrowService wheelBarrowService;
-    private final SessionFactory sessionFactory;
 
     @Autowired
     public CliApp(CategoryService categoryService, WheelBarrowService wheelBarrowService, SessionFactory sessionFactory) {
         this.categoryService = categoryService;
         this.wheelBarrowService = wheelBarrowService;
-        this.sessionFactory = sessionFactory;
     }
 
-    protected void addWheelbarrow() {
+    protected void addWheelbarrow(String name) {
         // Hibernate.initialize(category);
         Category category = categoryService.findAll().get(0);
         Hibernate.initialize(category.getWheelBarrows());
-        WheelBarrow wheelBarrow = WheelBarrow.builder()
-                .name("new barrow").price(100)
-                .category(category)
-                .build();
+        WheelBarrow wheelBarrow = WheelBarrow.builder().name(name).price(100).category(category).build();
         // categoryService.save(category);
         wheelBarrowService.save(wheelBarrow);
     }
@@ -48,25 +43,50 @@ public class CliApp implements CommandLineRunner {
         }
     }
 
+    private void printAllCategories() {
+        List<Category> categories = categoryService.findAll();
+        System.out.print("All categories: ");
+        for (Category category : categories) {
+            System.out.println(category);
+        }
+    }
+
     @Override
     public void run(String... args) throws Exception {
+        boolean isRunning = true;
         try (Scanner sc = new Scanner(System.in)) {
-            String command = sc.nextLine();
-            if (command.equals("pa")) {
-                System.out.println("Categories:");
-                categoryService.findAll().forEach(System.out::println);
-                List<Category> categories = categoryService.findAll();
-                printAllBarrows();
-                System.out.println("Wheelbarrows by category:");
-                for (Category category : categories) {
-                    List<WheelBarrow> wheelBarrows = wheelBarrowService.findAllByCategory(category);
-                    System.out.println("Category: " + category.getName());
-                    for (WheelBarrow wheelBarrow : wheelBarrows) {
-                        System.out.println(" - " + wheelBarrow);
-                    }
+            while (isRunning) {
+                String command = sc.nextLine();
+
+                switch (command.toLowerCase()) {
+                    case "exit":
+                        isRunning = false;
+                        break;
+                    case "pab":
+                        printAllBarrows();
+                        break;
+                    case "pac":
+                        printAllCategories();
+                        break;
+                    case "pbc":
+                        System.out.println("Wheelbarrows by category:");
+                        List<Category> categories = categoryService.findAll();
+                        for (Category category : categories) {
+                            List<WheelBarrow> wheelBarrows = wheelBarrowService.findAllByCategory(category);
+                            System.out.println("Category: " + category.getName());
+                            for (WheelBarrow wheelBarrow : wheelBarrows) {
+                                System.out.println(" - " + wheelBarrow);
+                            }
+                        }
+                        break;
+                    case "awb":
+                        System.out.println("Input name");
+                        String name = sc.nextLine();
+                        addWheelbarrow(name);
+                        break;
+                    default:
+                        System.out.println("Unknown command");
                 }
-                addWheelbarrow();
-                printAllBarrows();
 
             }
 
