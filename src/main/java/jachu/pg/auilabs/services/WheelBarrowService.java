@@ -1,7 +1,9 @@
 package jachu.pg.auilabs.services;
 
+import jachu.pg.auilabs.lab1.Category;
 import jachu.pg.auilabs.lab1.WheelBarrow;
 import jachu.pg.auilabs.repositories.ElementRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@Transactional
 public class WheelBarrowService {
     private final ElementRepository elementRepository;
 
@@ -22,6 +25,10 @@ public class WheelBarrowService {
         return elementRepository.findAll();
     }
 
+    public List<WheelBarrow> findAllByCategory(Category category) {
+        return elementRepository.findAllByCategory(category);
+    }
+
     public Optional<WheelBarrow> findById(UUID uuid) {
         return elementRepository.findByUuid(uuid);
     }
@@ -32,5 +39,10 @@ public class WheelBarrowService {
 
     public void deleteByUuid(UUID uuid) {
         elementRepository.deleteById(uuid);
+    }
+
+
+    public void deleteAll() {
+        elementRepository.deleteAll();
     }
 }

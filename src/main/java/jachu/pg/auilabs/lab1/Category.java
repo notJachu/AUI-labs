@@ -2,6 +2,7 @@ package jachu.pg.auilabs.lab1;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.UUID;
 public class Category implements Comparable<Category>, Serializable {
 
     @Id
-    private UUID uuid;
+    private UUID uuid = UUID.randomUUID();
     @Column(name = "category_name")
     private String name;
     @Column(name = "carry_weight")
@@ -29,6 +30,7 @@ public class Category implements Comparable<Category>, Serializable {
     private List<WheelBarrow> wheelBarrows = new ArrayList<>();
 
     public void addElement(WheelBarrow wheelBarrow) {
+        Hibernate.initialize(this.wheelBarrows);
         if (wheelBarrow == null) return;
         if (!wheelBarrows.contains(wheelBarrow)) {
             wheelBarrows.add(wheelBarrow);

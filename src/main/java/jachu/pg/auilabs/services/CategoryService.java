@@ -2,6 +2,7 @@ package jachu.pg.auilabs.services;
 
 import jachu.pg.auilabs.lab1.Category;
 import jachu.pg.auilabs.repositories.CategoryRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@Transactional
 public class CategoryService {
     private final CategoryRepository categoryRepository;
 

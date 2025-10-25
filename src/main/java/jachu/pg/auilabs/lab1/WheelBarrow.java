@@ -3,17 +3,19 @@ package jachu.pg.auilabs.lab1;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import java.io.Serializable;
 import java.util.UUID;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "wheelbarrows")
 public class WheelBarrow implements Comparable<WheelBarrow>, Serializable {
     @Id
-    private UUID uuid;
+    private UUID uuid = UUID.randomUUID();
 
     @Column(name = "wheelbarrow_name")
     private String name;
@@ -22,14 +24,15 @@ public class WheelBarrow implements Comparable<WheelBarrow>, Serializable {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category")
     private Category category;
 
 
     public void setCategory(Category category) {
+        Hibernate.initialize(category);
         this.category = category;
-        if (category != null && !category.getWheelBarrows().contains(this)) {
+        if (category != null) {
             category.addElement(this);
         }
     }
