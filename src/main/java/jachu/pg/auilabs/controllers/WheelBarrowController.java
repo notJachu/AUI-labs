@@ -71,4 +71,16 @@ public class WheelBarrowController {
         wheelBarrowService.save(wheelBarrow);
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<Void> deleteWheelBarrow(@PathVariable UUID id) {
+        Optional<WheelBarrow> wheelBarrow = wheelBarrowService.findById(id);
+
+        if (wheelBarrow.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        wheelBarrowService.deleteByUuid(id);
+        return ResponseEntity.ok().build();
+    }
 }
