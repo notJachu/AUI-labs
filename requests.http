@@ -1,0 +1,57 @@
+### Global Variables
+@baseURL = http://localhost:8080/api
+@jsonType = Content-Type: application/json
+
+
+### 1. Get All Categories
+# @desc Fetch a list of all categories.
+GET {{baseURL}}/categories
+
+> {% client.global.set("firstID", response.body[0].uuid) %}
+
+### 2. Create a New Category
+# @desc Create a new category with the provided details.
+POST {{baseURL}}/categories
+Content-Type: application/json
+
+{
+  "name": "New Category",
+  "carryWeight": 21
+}
+
+### 3. Get Category by ID
+# @desc Fetch details of a specific category by its ID.
+GET {{baseURL}}/categories/{{firstID}}
+
+### 4. Get All Categories after Creating One
+# @desc Fetch a list of all categories to verify the new category was added.
+GET {{baseURL}}/categories
+
+### 5. Update Category by ID
+# @desc Update the details of an existing category by its ID.
+PUT {{baseURL}}/categories/{{firstID}}
+Content-Type: application/json
+
+{
+  "name": "Updated Category",
+  "carryWeight": 25
+}
+
+### 6. Delete Category by ID
+# @desc Delete a specific category by its ID.
+DELETE {{baseURL}}/categories/{{firstID}}
+
+### 7. Delete Non-Existent Category
+# @desc Attempt to delete a category that does not exist to test error handling.
+DELETE {{baseURL}}/categories/{{firstID}}
+
+### 8. Get All Wheelbarrows
+# @desc Fetch a list of all wheelbarrows.
+GET {{baseURL}}/wheelbarrows
+
+> {% client.global.set("wheelbarrowID", response.body[0].uuid) %}
+
+### 9. Get Wheelbarrow by ID
+# @desc Fetch details of a specific wheelbarrow by its ID.
+GET {{baseURL}}/wheelbarrows/{{wheelbarrowID}}
+
