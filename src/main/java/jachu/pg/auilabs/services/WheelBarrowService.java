@@ -46,4 +46,14 @@ public class WheelBarrowService {
     public void deleteAll() {
         elementRepository.deleteAll();
     }
+
+    @Transactional
+    public Object createWheelBarrow(String name, int price, Category category) {
+        WheelBarrow wheelBarrow = WheelBarrow.builder()
+                .name(name)
+                .price(price)
+                .category(category)
+                .build();
+        return elementRepository.save(wheelBarrow);
+    }
 }
