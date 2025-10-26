@@ -69,4 +69,20 @@ public class CategoryController {
         categoryService.save(category);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateCategory(@PathVariable UUID id, @RequestBody CategoryCreateUpdateDto categoryDto) {
+        Optional<Category> optionalCategory = categoryService.findById(id);
+
+        if (optionalCategory.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Category category = optionalCategory.get();
+        category.setName(categoryDto.getName());
+        category.setCarryWeight(categoryDto.getCarryWeight());
+
+        categoryService.save(category);
+        return ResponseEntity.ok().build();
+    }
 }
