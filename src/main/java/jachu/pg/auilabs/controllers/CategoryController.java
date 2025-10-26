@@ -85,4 +85,16 @@ public class CategoryController {
         categoryService.save(category);
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCategory(@PathVariable UUID id) {
+        Optional<Category> optionalCategory = categoryService.findById(id);
+
+        if (optionalCategory.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        categoryService.deleteByUuid(id);
+        return ResponseEntity.ok().build();
+    }
 }
