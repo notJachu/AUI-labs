@@ -2,14 +2,13 @@ package jachu.pg.auilabs.controllers;
 
 import jachu.pg.auilabs.entities.Category;
 import jachu.pg.auilabs.entities.DTOs.CategoryCollectionDto;
+import jachu.pg.auilabs.entities.DTOs.CategoryCreateUpdateDto;
 import jachu.pg.auilabs.entities.DTOs.CategoryReadDto;
 import jachu.pg.auilabs.services.CategoryService;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,11 +17,10 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/categories")
 public class CategoryController {
-    private final CategoryController categoryController;
+
     private final CategoryService categoryService;
 
-    public CategoryController(CategoryController categoryController, CategoryService categoryService) {
-        this.categoryController = categoryController;
+    public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
@@ -60,5 +58,15 @@ public class CategoryController {
         );
 
         return ResponseEntity.ok(categoryDto);
+    }
+
+    @PostMapping("")
+    public ResponseEntity<Void> addCategory(@RequestBody CategoryCreateUpdateDto categoryDto) {
+        Category category = new Category();
+        category.setName(categoryDto.getName());
+        category.setCarryWeight(categoryDto.getCarryWeight());
+
+        categoryService.save(category);
+        return ResponseEntity.ok().build();
     }
 }
