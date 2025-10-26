@@ -29,7 +29,8 @@ public class CliApp implements CommandLineRunner {
     protected void addWheelbarrow(String name) {
         // Hibernate.initialize(category);
         Category category = categoryService.findAll().get(0);
-        Hibernate.initialize(category.getWheelBarrows());
+        //Hibernate.initialize(category.getWheelBarrows());
+        category.setWheelBarrows(wheelBarrowService.findAllByCategory(category));
         WheelBarrow wheelBarrow = WheelBarrow.builder().name(name).price(100).category(category).build();
         // categoryService.save(category);
         wheelBarrowService.save(wheelBarrow);

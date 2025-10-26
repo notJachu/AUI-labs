@@ -25,6 +25,7 @@ public class WheelBarrowService {
         return elementRepository.findAll();
     }
 
+    @Transactional
     public List<WheelBarrow> findAllByCategory(Category category) {
         return elementRepository.findAllByCategory(category);
     }
