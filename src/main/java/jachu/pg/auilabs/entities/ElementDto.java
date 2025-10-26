@@ -1,4 +1,4 @@
-package jachu.pg.auilabs.lab1;
+package jachu.pg.auilabs.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

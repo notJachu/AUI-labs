@@ -1,19 +1,7 @@
 package jachu.pg.auilabs;
 
-import jachu.pg.auilabs.lab1.Category;
-import jachu.pg.auilabs.lab1.ElementDto;
-import jachu.pg.auilabs.lab1.WheelBarrow;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 @SpringBootApplication
 public class AuiLabsApplication {

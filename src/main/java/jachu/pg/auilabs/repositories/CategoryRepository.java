@@ -1,6 +1,6 @@
 package jachu.pg.auilabs.repositories;
 
-import jachu.pg.auilabs.lab1.Category;
+import jachu.pg.auilabs.entities.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

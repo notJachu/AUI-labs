@@ -1,7 +1,7 @@
 package jachu.pg.auilabs.components;
 
-import jachu.pg.auilabs.lab1.Category;
-import jachu.pg.auilabs.lab1.WheelBarrow;
+import jachu.pg.auilabs.entities.Category;
+import jachu.pg.auilabs.entities.WheelBarrow;
 import jachu.pg.auilabs.services.CategoryService;
 import jachu.pg.auilabs.services.WheelBarrowService;
 import jakarta.annotation.PostConstruct;

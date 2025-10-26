@@ -1,7 +1,7 @@
 package jachu.pg.auilabs.services;
 
-import jachu.pg.auilabs.lab1.Category;
-import jachu.pg.auilabs.lab1.WheelBarrow;
+import jachu.pg.auilabs.entities.Category;
+import jachu.pg.auilabs.entities.WheelBarrow;
 import jachu.pg.auilabs.repositories.ElementRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
