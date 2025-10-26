@@ -2,6 +2,7 @@ package jachu.pg.auilabs.controllers;
 
 import jachu.pg.auilabs.entities.DTOs.CategoryCollectionDto;
 import jachu.pg.auilabs.entities.DTOs.WheelBarrowCollectionDto;
+import jachu.pg.auilabs.entities.DTOs.WheelBarrowCreateUpdateDto;
 import jachu.pg.auilabs.entities.DTOs.WheelBarrowReadDto;
 import jachu.pg.auilabs.entities.WheelBarrow;
 import jachu.pg.auilabs.services.CategoryService;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -54,5 +56,19 @@ public class WheelBarrowController {
         return ResponseEntity.ok(wheelBarrowDto);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateWheelBarrow(@PathVariable UUID id, @RequestBody WheelBarrowCreateUpdateDto wheelBarrowDto) {
 
+        WheelBarrow wheelBarrow = wheelBarrowService.findById(id).orElse(null);
+
+        if (wheelBarrow == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        wheelBarrow.setName(wheelBarrowDto.getName());
+        wheelBarrow.setPrice(wheelBarrowDto.getPrice());
+
+        wheelBarrowService.save(wheelBarrow);
+        return ResponseEntity.ok().build();
+    }
 }
