@@ -4,9 +4,9 @@ import jachu.pg.auilabs.entities.Category;
 import jachu.pg.auilabs.entities.DTOs.CategoryCollectionDto;
 import jachu.pg.auilabs.entities.DTOs.CategoryCreateUpdateDto;
 import jachu.pg.auilabs.entities.DTOs.CategoryReadDto;
+import jachu.pg.auilabs.entities.DTOs.WheelBarrowCreateUpdateDto;
 import jachu.pg.auilabs.services.CategoryService;
-import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
+import jachu.pg.auilabs.services.WheelBarrowService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +19,10 @@ import java.util.UUID;
 public class CategoryController {
 
     private final CategoryService categoryService;
+    private final WheelBarrowService wheelBarrowService;
 
-    public CategoryController(CategoryService categoryService) {
+    public CategoryController(CategoryService categoryService, WheelBarrowService wheelBarrowService) {
+        this.wheelBarrowService = wheelBarrowService;
         this.categoryService = categoryService;
     }
 
@@ -97,4 +99,24 @@ public class CategoryController {
         categoryService.deleteByUuid(id);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("{id}/createWheelBarrow")
+    public ResponseEntity<Void> createWheelBarrow(@PathVariable UUID id, @RequestBody WheelBarrowCreateUpdateDto wheelBarrowDto) {
+        Optional<Category> optionalCategory = categoryService.findById(id);
+
+        if (optionalCategory.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Category category = optionalCategory.get();
+
+        wheelBarrowService.createWheelBarrow(
+                wheelBarrowDto.getName(),
+                wheelBarrowDto.getPrice(),
+                category
+        );
+
+        return ResponseEntity.ok().build();
+    }
+
 }
