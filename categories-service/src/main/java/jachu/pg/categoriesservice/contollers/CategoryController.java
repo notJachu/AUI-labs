@@ -80,7 +80,7 @@ public class CategoryController {
                 .build();
 
         try {
-            String eventUrl = wheelBarrowServiceURL + "/api/categories";
+            String eventUrl = wheelBarrowServiceURL + "/categories";
             restTemplate.postForEntity(eventUrl, categorySendDto, Void.class);
         } catch (Exception e) {
             System.err.println("Wheelbarrow Service is not available: " + e.getMessage());
@@ -109,7 +109,7 @@ public class CategoryController {
                 .build();
 
         try {
-            String eventUrl = wheelBarrowServiceURL + "/api/categories/" + category.getUuid();
+            String eventUrl = wheelBarrowServiceURL + "/categories/" + category.getUuid();
             restTemplate.put(eventUrl, categorySendDto);
         } catch (Exception e) {
             System.err.println("Wheelbarrow Service is not available: " + e.getMessage());
@@ -128,7 +128,7 @@ public class CategoryController {
         categoryService.deleteByUuid(id);
 
         try {
-            String eventUrl = wheelBarrowServiceURL + "/api/categories/" + id;
+            String eventUrl = wheelBarrowServiceURL + "/categories/" + id;
             restTemplate.delete(eventUrl);
         } catch (Exception e) {
             System.err.println("Wheelbarrow Service is not available: " + e.getMessage());

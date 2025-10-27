@@ -3,55 +3,69 @@
 @jsonType = Content-Type: application/json
 
 
-### 1. Get All Categories
-# @desc Fetch a list of all categories.
-GET {{baseURL}}/categories
-
-> {% client.global.set("firstID", response.body[0].uuid) %}
-
-### 2. Create a New Category
-# @desc Create a new category with the provided details.
+### 1. Create test category
 POST {{baseURL}}/categories
 Content-Type: application/json
 
 {
-  "name": "New Category",
-  "carryWeight": 21
+  "name": "Test Category",
+  "carryWeight": 20
 }
 
-### 3. Get Category by ID
-# @desc Fetch details of a specific category by its ID.
-GET {{baseURL}}/categories/{{firstID}}
-
-### 4. Get All Categories after Creating One
-# @desc Fetch a list of all categories to verify the new category was added.
+### 2. get the created category id
 GET {{baseURL}}/categories
 
-### 5. Update Category by ID
-# @desc Update the details of an existing category by its ID.
-PUT {{baseURL}}/categories/{{firstID}}
+> {% client.global.set("testCategoryID", response.body[0].uuid) %}
+
+### 2.1. Get category by ID
+GET {{baseURL}}/categories/{{testCategoryID}}
+
+
+### 3. Create test item in the created category
+POST {{baseURL}}/categories/{{testCategoryID}}/createWheelBarrow
 Content-Type: application/json
 
 {
-  "name": "Updated Category",
-  "carryWeight": 25
+  "name": "Test Item",
+  "weight": 5,
+  "value": 100
 }
 
-### 6. Delete Category by ID
-# @desc Delete a specific category by its ID.
-DELETE {{baseURL}}/categories/{{firstID}}
-
-### 7. Delete Non-Existent Category
-# @desc Attempt to delete a category that does not exist to test error handling.
-DELETE {{baseURL}}/categories/{{firstID}}
-
-### 8. Get All Wheelbarrows
-# @desc Fetch a list of all wheelbarrows.
+### 4. get the created item id
 GET {{baseURL}}/wheelbarrows
 
-> {% client.global.set("wheelbarrowID", response.body[0].uuid) %}
+> {% client.global.set("testItemID", response.body[0].uuid) %}
 
-### 9. Get Wheelbarrow by ID
-# @desc Fetch details of a specific wheelbarrow by its ID.
-GET {{baseURL}}/wheelbarrows/{{wheelbarrowID}}
+### 4.1. Get item by ID
+GET {{baseURL}}/wheelbarrows/{{testItemID}}
 
+### 5. Update the test item
+PUT {{baseURL}}/wheelbarrows/{{testItemID}}
+Content-Type: application/json
+
+{
+  "name": "Updated Test Item",
+  "weight": 10,
+  "value": 150
+}
+
+### 6. Update the test category
+PUT {{baseURL}}/categories/{{testCategoryID}}
+Content-Type: application/json
+
+{
+  "name": "Updated Test Category",
+  "carryWeight": 30
+}
+
+### 7. Delete the test item
+DELETE {{baseURL}}/wheelbarrows/{{testItemID}}
+
+### 8. Delete non-existing item (should return 404)
+DELETE {{baseURL}}/wheelbarrows/{{testItemID}}
+
+### 9. Delete the test category
+DELETE {{baseURL}}/categories/{{testCategoryID}}
+
+### 10. Delete non-existing category (should return 404)
+DELETE {{baseURL}}/categories/{{testCategoryID}}
