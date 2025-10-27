@@ -65,7 +65,7 @@ public class DataInitializer {
 
     @PreDestroy
     public void clean() {
-        categoryService.deleteAll();
+        // categoryService.deleteAll();
         wheelBarrowService.deleteAll();
         System.out.println("Cleaned up wheelbarrows in wheelbarrows-service");
     }

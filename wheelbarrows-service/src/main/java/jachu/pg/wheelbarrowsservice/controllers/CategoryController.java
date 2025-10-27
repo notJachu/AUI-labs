@@ -55,11 +55,13 @@ public class CategoryController {
         return ResponseEntity.ok(categoryDto);
     }
 
+    // saving category sent from category service
     @PostMapping("")
     public ResponseEntity<Void> addCategory(@RequestBody CategoryCreateUpdateDto categoryDto) {
         Category category = new Category();
         category.setName(categoryDto.getName());
         category.setCarryWeight(categoryDto.getCarryWeight());
+        category.setUuid(categoryDto.getUuid());
 
         categoryService.save(category);
         return ResponseEntity.ok().build();
