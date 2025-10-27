@@ -5,9 +5,14 @@ import jachu.pg.categoriesservice.entities.Category;
 import jachu.pg.categoriesservice.entities.DTOs.CategoryCollectionDto;
 import jachu.pg.categoriesservice.entities.DTOs.CategoryCreateUpdateDto;
 import jachu.pg.categoriesservice.entities.DTOs.CategoryReadDto;
+import jachu.pg.categoriesservice.entities.DTOs.CategorySendDto;
 import jachu.pg.categoriesservice.services.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -17,9 +22,17 @@ import java.util.UUID;
 public class CategoryController {
 
     private final CategoryService categoryService;
+    private final RestTemplate restTemplate;
+    private final String wheelBarrowServiceURL;
 
-    public CategoryController(CategoryService categoryService) {
+    @Autowired
+    public CategoryController(CategoryService categoryService,
+                              RestTemplate restTemplate,
+                              @Value("${wheelbarrows.service.url}")
+                                  String wheelBarrowServiceURL) {
         this.categoryService = categoryService;
+        this.restTemplate = restTemplate;
+        this.wheelBarrowServiceURL = wheelBarrowServiceURL;
     }
 
     @GetMapping("")
@@ -59,6 +72,19 @@ public class CategoryController {
         category.setCarryWeight(categoryDto.getCarryWeight());
 
         categoryService.save(category);
+
+        CategorySendDto categorySendDto = CategorySendDto.builder()
+                .uuid(category.getUuid())
+                .name(category.getName())
+                .carryWeight(category.getCarryWeight())
+                .build();
+
+        try {
+            String eventUrl = wheelBarrowServiceURL + "/api/categories";
+            restTemplate.postForEntity(eventUrl, categorySendDto, Void.class);
+        } catch (Exception e) {
+            System.err.println("Wheelbarrow Service is not available: " + e.getMessage());
+        }
         return ResponseEntity.ok().build();
     }
 
@@ -75,6 +101,19 @@ public class CategoryController {
         category.setCarryWeight(categoryDto.getCarryWeight());
 
         categoryService.save(category);
+
+        CategorySendDto categorySendDto = CategorySendDto.builder()
+                .uuid(category.getUuid())
+                .name(category.getName())
+                .carryWeight(category.getCarryWeight())
+                .build();
+
+        try {
+            String eventUrl = wheelBarrowServiceURL + "/api/categories/" + category.getUuid();
+            restTemplate.put(eventUrl, categorySendDto);
+        } catch (Exception e) {
+            System.err.println("Wheelbarrow Service is not available: " + e.getMessage());
+        }
         return ResponseEntity.ok().build();
     }
 
@@ -87,6 +126,13 @@ public class CategoryController {
         }
 
         categoryService.deleteByUuid(id);
+
+        try {
+            String eventUrl = wheelBarrowServiceURL + "/api/categories/" + id;
+            restTemplate.delete(eventUrl);
+        } catch (Exception e) {
+            System.err.println("Wheelbarrow Service is not available: " + e.getMessage());
+        }
         return ResponseEntity.ok().build();
     }
 
