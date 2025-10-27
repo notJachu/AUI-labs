@@ -33,13 +33,13 @@ public class DataInitializer {
         categoryService.save(categoryOne);
         categoryService.save(categoryTwo);
 
-        System.out.println("Initialized categories and wheelbarrows");
+        System.out.println("Initialized categories in category service");
     }
 
     @PreDestroy
     public void clean() {
         categoryService.deleteAll();
         //wheelBarrowService.deleteAll();
-        System.out.println("Cleaned up categories and wheelbarrows");
+        System.out.println("Cleaned up categories in category service");
     }
 }
