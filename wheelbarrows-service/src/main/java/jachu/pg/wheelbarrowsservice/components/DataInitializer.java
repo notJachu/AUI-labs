@@ -5,7 +5,6 @@ import jachu.pg.wheelbarrowsservice.entities.WheelBarrow;
 import jachu.pg.wheelbarrowsservice.services.CategoryService;
 import jachu.pg.wheelbarrowsservice.services.WheelBarrowService;
 import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import org.springframework.stereotype.Component;
 
@@ -56,13 +55,18 @@ public class DataInitializer {
         categoryService.save(categoryOne);
         categoryService.save(categoryTwo);
 
-        System.out.println("Initialized categories and wheelbarrows");
+        wheelBarrowService.save(wheelBarrowOne);
+        wheelBarrowService.save(wheelBarrowTwo);
+        wheelBarrowService.save(wheelBarrowThree);
+
+
+        System.out.println("Initialized wheelbarrows in wheelbarrows-service");
     }
 
     @PreDestroy
     public void clean() {
-        //categoryService.deleteAll();
-        //wheelBarrowService.deleteAll();
-        System.out.println("Cleaned up categories and wheelbarrows");
+        categoryService.deleteAll();
+        wheelBarrowService.deleteAll();
+        System.out.println("Cleaned up wheelbarrows in wheelbarrows-service");
     }
 }
