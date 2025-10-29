@@ -51,11 +51,20 @@ public class CliApp implements CommandLineRunner {
         }
     }
 
+    private void help(){
+        System.out.println("1. exit - exits program");
+        System.out.println("2. pab - print all barrows");
+        System.out.println("3. pac - print all categories");
+        System.out.println("4. awb - add wheelbarrow");
+        System.out.println("5. pbc - print by category");
+    }
+
     @Override
     public void run(String... args) throws Exception {
         boolean isRunning = true;
         try (Scanner sc = new Scanner(System.in)) {
             while (isRunning) {
+                help();
                 String command = sc.nextLine();
 
                 switch (command.toLowerCase()) {
