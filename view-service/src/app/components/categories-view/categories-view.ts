@@ -1,9 +1,12 @@
 import {Component, inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-categories-view',
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './categories-view.html',
   styleUrl: './categories-view.css',
 })
