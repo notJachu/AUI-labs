@@ -1,0 +1,42 @@
+button {
+  border: none;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px 15px;
+}
+
+button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.add-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.edit-button {
+  background-color: #008CBA;
+  color: white;
+}
+
+.delete-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.categories-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: left;
+  padding: 20px;
+}
+
+.category-card {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  width: 200px;
+  text-align: center;
+}
