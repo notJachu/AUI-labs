@@ -5,6 +5,20 @@
     <h2>{{category.name}}</h2>
     <p>Carry weight: {{category.carryWeight}}</p>
   </div>
+  @if (elements.length > 0) {
+    <h3>Elements in this Category:</h3>
+    <div class="elements-list">
+      @for (element of elements; track element.name) {
+        <div class="element-card card">
+          <h4><a routerLink="/wheelbarrows/{{element.uuid}}">{{ element.name }}</a></h4>
+          <button class="edit-button" routerLink="/wheelbarrows/edit/{{element.uuid}}">Edit</button>
+<!--          <button class="delete-button" (click)="deleteCategory(category.uuid)">Delete</button>-->
+        </div>
+      }
+    </div>
+  } @else {
+    <p>No elements found in this category.</p>
+  }
 } @else {
   <h1>Category not found</h1>
 }
