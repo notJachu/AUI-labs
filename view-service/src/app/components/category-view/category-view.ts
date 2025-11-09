@@ -38,4 +38,11 @@ export class CategoryView {
       this.elements = data;
     });
   }
+
+  deleteElement(elementId: number) {
+    this.http.delete('http://localhost:8080/api/wheelbarrows/' + elementId
+    ).subscribe(() => {
+      this.loadElements();
+    });
+  }
 }
