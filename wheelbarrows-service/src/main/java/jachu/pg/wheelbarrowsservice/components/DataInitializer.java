@@ -22,13 +22,13 @@ public class DataInitializer {
     @PostConstruct
     public void init() {
         Category categoryOne = Category.builder()
-                .uuid(UUID.randomUUID())
+                .uuid(UUID.fromString("11111111-1111-1111-1111-111111111111"))
                 .name("Small")
                 .carryWeight(4)
                 .build();
 
         Category categoryTwo = Category.builder()
-                .uuid(UUID.randomUUID())
+                .uuid(UUID.fromString("22222222-2222-2222-2222-222222222222"))
                 .name("Large")
                 .carryWeight(62)
                 .build();
