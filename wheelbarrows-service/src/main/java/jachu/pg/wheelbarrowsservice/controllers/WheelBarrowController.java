@@ -9,6 +9,7 @@ import jachu.pg.wheelbarrowsservice.entities.DTOs.WheelBarrowCreateUpdateDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,8 +25,19 @@ public class WheelBarrowController {
     }
 
     @GetMapping("")
-    public List<WheelBarrowCollectionDto> getWheelBarrows() {
+    public List<WheelBarrowCollectionDto> getWheelBarrows(@RequestParam(required = false) UUID categoryId) {
         List<WheelBarrow> wheelBarrows = wheelBarrowService.findAll();
+        if (categoryId != null) {
+            List<WheelBarrowCollectionDto> wheelBarrowCollectionDtos = wheelBarrows.stream()
+                    .filter(wheelBarrow -> wheelBarrow.getCategory() != null &&
+                            wheelBarrow.getCategory().getUuid().equals(categoryId))
+                    .map(wheelBarrow -> new WheelBarrowCollectionDto(
+                            wheelBarrow.getUuid(),
+                            wheelBarrow.getName()
+                    ))
+                    .toList();
+            return wheelBarrowCollectionDtos;
+        }
         List<WheelBarrowCollectionDto> wheelBarrowDtos = wheelBarrows.stream()
                 .map(wheelBarrow -> new WheelBarrowCollectionDto(
                         wheelBarrow.getUuid(),
