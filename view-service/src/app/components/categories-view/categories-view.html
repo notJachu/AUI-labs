@@ -4,7 +4,7 @@
     <div class="category-card">
       <h3><a routerLink="/categories/{{category.uuid}}">{{ category.name }}</a></h3>
       <button class="edit-button" routerLink="/categories/edit/{{category.uuid}}">Edit</button>
-      <button class="delete-button" routerLink="/categories/delete/{{category.uuid}}">Delete</button>
+      <button class="delete-button" (click)="deleteCategory(category.uuid)">Delete</button>
     </div>
   }
 </div>

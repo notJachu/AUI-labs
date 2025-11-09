@@ -26,4 +26,11 @@ export class CategoriesView {
       this.categories = data;
     });
   }
+
+  deleteCategory(id: number) {
+    this.http.delete(`http://localhost:8080/api/categories/${id}`
+    ).subscribe(() => {
+      this.loadCategories();
+    });
+  }
 }
