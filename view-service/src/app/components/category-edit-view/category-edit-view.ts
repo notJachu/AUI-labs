@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 
 @Component({
@@ -13,6 +13,7 @@ import {FormsModule} from '@angular/forms';
 })
 export class CategoryEditView {
   private http = inject(HttpClient);
+  private router = inject(Router);
   category: any = null;
   private route = inject(ActivatedRoute)
 
@@ -33,6 +34,7 @@ export class CategoryEditView {
     this.http.put<any>('http://localhost:8080/api/categories/' + categoryId, this.category).subscribe(data => {
       this.category = data;
       alert('Category updated successfully!');
+      this.router.navigate(['/categories'])
     });
 
   }
