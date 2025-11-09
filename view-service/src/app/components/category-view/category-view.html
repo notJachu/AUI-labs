@@ -1,0 +1,10 @@
+<p>category-view works!</p>
+
+@if (category) {
+  <div class="category-details">
+    <h2>{{category.name}}</h2>
+    <p>Carry weight: {{category.carryWeight}}</p>
+  </div>
+} @else {
+  <h1>Category not found</h1>
+}
