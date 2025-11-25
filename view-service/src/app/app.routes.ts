@@ -25,15 +25,15 @@ export const routes: Routes = [
     component: CategoryEditView,
   },
   {
-    path: 'wheelbarrows/:id',
-    component: ElementView
-  },
-  {
-    path: 'categories/:id/new',
+    path: 'categories/:id/elements/new',
     component: ElementCreateView
   },
   {
-    path: 'wheelbarrows/edit/:id',
+    path: 'categories/:id/elements/:elementId',
+    component: ElementView
+  },
+  {
+    path: 'categories/:id/elements/edit/:elementId',
     component: ElementEditView
   }
 ];

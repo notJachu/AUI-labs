@@ -18,7 +18,7 @@ export class ElementView {
   }
 
   loadElement() {
-    const elementId = this.route.snapshot.paramMap.get('id');
+    const elementId = this.route.snapshot.paramMap.get('elementId');
     this.http.get<any>('http://localhost:8080/api/wheelbarrows/' + elementId,
     ).subscribe(data => {
       this.element = data;

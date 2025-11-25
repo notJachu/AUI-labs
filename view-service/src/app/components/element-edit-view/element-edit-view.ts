@@ -22,7 +22,7 @@ export class ElementEditView {
   }
 
   loadElement() {
-    const elementId = this.route.snapshot.paramMap.get('id');
+    const elementId = this.route.snapshot.paramMap.get('elementId');
     this.http.get<any>('http://localhost:8080/api/wheelbarrows/' + elementId,
     ).subscribe(data => {
       this.element = data;
@@ -30,11 +30,12 @@ export class ElementEditView {
   }
 
   onSubmit() {
-    const elementId = this.route.snapshot.paramMap.get('id');
+    const elementId = this.route.snapshot.paramMap.get('elementId');
+    const categoryId = this.route.snapshot.paramMap.get('id');
     this.http.put<any>('http://localhost:8080/api/wheelbarrows/' + elementId, this.element).subscribe(data => {
       this.element = data;
       alert('Element updated successfully!');
-      this.router.navigate(['/wheelbarrows/' + elementId])
+      this.router.navigate(['/categories/' + categoryId + '/elements/' + elementId])
     });
 
   }

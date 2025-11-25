@@ -10,13 +10,13 @@
     <div class="elements-list">
       @for (element of elements; track element.name) {
         <div class="element-card card">
-          <h4><a routerLink="/wheelbarrows/{{element.uuid}}">{{ element.name }}</a></h4>
-          <button class="edit-button" routerLink="/wheelbarrows/edit/{{element.uuid}}">Edit</button>
+          <h4><a routerLink="/categories/{{category.uuid}}/elements/{{element.uuid}}">{{ element.name }}</a></h4>
+          <button class="edit-button" routerLink="/categories/{{category.uuid}}/elements/edit/{{element.uuid}}">Edit</button>
           <button class="delete-button" (click)="deleteElement(element.uuid)">Delete</button>
         </div>
       }
     </div>
-    <button class="add-button" routerLink="/categories/{{category.uuid}}/new">Add New Element</button>
+    <button class="add-button" routerLink="/categories/{{category.uuid}}/elements/new">Add New Element</button>
   } @else {
     <p>No elements found in this category.</p>
   }
