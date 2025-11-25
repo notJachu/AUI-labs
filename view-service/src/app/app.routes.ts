@@ -28,7 +28,7 @@ export const routes: Routes = [
     component: ElementView
   },
   {
-    path: 'wheelbarrows/new',
+    path: 'categories/:id/new',
     component: ElementCreateView
   }
 ];
