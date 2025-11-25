@@ -1,0 +1,11 @@
+<h2>Categories</h2>
+<div class="categories-list">
+  @for (category of categories; track category.name) {
+    <div class="category-card">
+      <h3><a routerLink="/categories/{{category.uuid}}">{{ category.name }}</a></h3>
+      <button class="edit-button" routerLink="/categories/edit/{{category.uuid}}">Edit</button>
+      <button class="delete-button" (click)="deleteCategory(category.uuid)">Delete</button>
+    </div>
+  }
+</div>
+<button class="add-button" routerLink="/categories/new">Add New Category</button>

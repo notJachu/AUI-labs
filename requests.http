@@ -1,0 +1,71 @@
+### Global Variables
+@baseURL = http://localhost:8080/api
+@jsonType = Content-Type: application/json
+
+
+### 1. Create test category
+POST {{baseURL}}/categories
+Content-Type: application/json
+
+{
+  "name": "Test Category",
+  "carryWeight": 20
+}
+
+### 2. get the created category id
+GET {{baseURL}}/categories
+
+> {% client.global.set("testCategoryID", response.body[0].uuid) %}
+
+### 2.1. Get category by ID
+GET {{baseURL}}/categories/{{testCategoryID}}
+
+
+### 3. Create test item in the created category
+POST {{baseURL}}/categories/{{testCategoryID}}/createWheelBarrow
+Content-Type: application/json
+
+{
+  "name": "Test Item",
+  "weight": 5,
+  "value": 100
+}
+
+### 4. get the created item id
+GET {{baseURL}}/wheelbarrows
+
+> {% client.global.set("testItemID", response.body[0].uuid) %}
+
+### 4.1. Get item by ID
+GET {{baseURL}}/wheelbarrows/{{testItemID}}
+
+### 5. Update the test item
+PUT {{baseURL}}/wheelbarrows/{{testItemID}}
+Content-Type: application/json
+
+{
+  "name": "Updated Test Item",
+  "weight": 10,
+  "value": 150
+}
+
+### 6. Update the test category
+PUT {{baseURL}}/categories/{{testCategoryID}}
+Content-Type: application/json
+
+{
+  "name": "Updated Test Category",
+  "carryWeight": 30
+}
+
+### 7. Delete the test item
+DELETE {{baseURL}}/wheelbarrows/{{testItemID}}
+
+### 8. Delete non-existing item (should return 404)
+DELETE {{baseURL}}/wheelbarrows/{{testItemID}}
+
+### 9. Delete the test category
+DELETE {{baseURL}}/categories/{{testCategoryID}}
+
+### 10. Delete non-existing category (should return 404)
+DELETE {{baseURL}}/categories/{{testCategoryID}}

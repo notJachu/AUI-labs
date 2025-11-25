@@ -1,0 +1,16 @@
+@if (element){
+    <div class="edit-element-view">
+      <h2>Edit Element</h2>
+      <form (ngSubmit)="onSubmit()" #elementForm="ngForm">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" [(ngModel)]="element.name" name="name" required />
+        </div>
+        <div class="form-group">
+          <label for="price">Price:</label>
+          <input type="number" id="price" [(ngModel)]="element.price" name="price" required />
+        </div>
+        <button type="submit" [disabled]="!elementForm.form.valid">Update Element</button>
+      </form>
+    </div>
+}

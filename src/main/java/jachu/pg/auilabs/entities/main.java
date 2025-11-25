@@ -1,4 +1,4 @@
-package jachu.pg.auilabs.lab1;
+package jachu.pg.auilabs.entities;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -7,6 +7,8 @@ import java.util.Set;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+
+// DEPRECATED - use AuiLabsApplication instead
 
 public class main {
     public static void main(String[] args) {

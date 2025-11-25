@@ -1,0 +1,28 @@
+<style class="app-styles">
+  .app-container {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  header {
+    margin-bottom: 20px;
+  }
+  nav a {
+    margin-right: 15px;
+    text-decoration: none;
+    color: black;
+  }
+  nav a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<main class="app-container">
+  <header>
+    <h1>Apka z taczkami</h1>
+    <nav>
+      <a routerLink="/">Home</a>
+      <a routerLink="/categories">Categories</a>
+    </nav>
+  </header>
+  <router-outlet />
+</main>

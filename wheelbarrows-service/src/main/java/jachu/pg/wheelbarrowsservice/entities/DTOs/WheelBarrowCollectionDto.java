@@ -1,17 +1,16 @@
-package jachu.pg.auilabs.lab1;
+package jachu.pg.wheelbarrowsservice.entities.DTOs;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.UUID;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ElementDto {
-
-    private String name;
-    private int value;
-    private String categoryName;
+@Builder
+public class WheelBarrowCollectionDto {
+    UUID uuid;
+    String name;
 }
