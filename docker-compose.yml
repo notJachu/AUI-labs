@@ -1,0 +1,107 @@
+services:
+  category-db:
+    image: postgres:15-alpine
+
+    environment:
+      - POSTGRES_USER=category_user
+      - POSTGRES_PASSWORD=category_password
+      - POSTGRES_DB=category_db
+    
+    volumes:
+      - category-db-data:/var/lib/postgresql/data
+
+    networks:
+      - aui-lab-network
+
+  element-db:
+    image: postgres:15-alpine
+
+    environment:
+      - POSTGRES_USER=element_user
+      - POSTGRES_PASSWORD=element_password
+      - POSTGRES_DB=element_db
+    
+    volumes:
+      - element-db-data:/var/lib/postgresql/data
+
+    networks:
+      - aui-lab-network
+
+  gateway-service:
+    build: ./gateway-service
+    depends_on:
+      - wheelbarrow-service
+      - category-service
+    networks:
+      - aui-lab-network  
+
+    environment:
+      - SERVER_PORT=8080
+      - SPRING_CLOUD_GATEWAY_SERVER_WEBMVC_ROUTES_0_ID=wheelbarrow_create_service_route
+      - SPRING_CLOUD_GATEWAY_SERVER_WEBMVC_ROUTES_0_URI=http://category-service:8082
+      - SPRING_CLOUD_GATEWAY_SERVER_WEBMVC_ROUTES_0_PREDICATES_0=Path=/api/categories/{id}/createWheelBarrow
+      
+      - SPRING_CLOUD_GATEWAY_SERVER_WEBMVC_ROUTES_1_ID=wheelbarrow_service_route
+      - SPRING_CLOUD_GATEWAY_SERVER_WEBMVC_ROUTES_1_URI=http://wheelbarrow-service:8082
+      - SPRING_CLOUD_GATEWAY_SERVER_WEBMVC_ROUTES_1_PREDICATES_0=Path=/api/wheelbarrows/**
+
+      - SPRING_CLOUD_GATEWAY_SERVER_WEBMVC_ROUTES_2_ID=category_service_route
+      - SPRING_CLOUD_GATEWAY_SERVER_WEBMVC_ROUTES_2_URI=http://category-service:8081
+      - SPRING_CLOUD_GATEWAY_SERVER_WEBMVC_ROUTES_2_PREDICATES_0=Path=/api/categories/**
+
+  wheelbarrow-service:
+    build: ./wheelbarrows-service
+    environment:
+      - SERVER_PORT=8082
+
+      # Database configuration
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://element-db:5432/element_db
+      - SPRING_DATASOURCE_USERNAME=element_user
+      - SPRING_DATASOURCE_PASSWORD=element_password
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
+      
+    depends_on:
+      - element-db
+    networks:
+      - aui-lab-network
+
+  category-service:
+    build: ./categories-service
+
+    environment:
+      - SERVER_PORT=8081
+      - WHEELBARROW_SERVICE_URL=http://wheelbarrow-service:8082/api/
+
+      # Database configuration
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://category-db:5432/category_db
+      - SPRING_DATASOURCE_USERNAME=category_user
+      - SPRING_DATASOURCE_PASSWORD=category_password
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
+    depends_on:
+      - wheelbarrow-service
+      - category-db
+
+    networks:
+      - aui-lab-network
+
+  view-service:
+    build: ./view-service
+    ports:
+      - "8080:80" 
+    environment:
+      - BACKEND_URL=http://gateway-service:8080
+    depends_on:
+      - gateway-service
+    networks:
+      - aui-lab-network
+
+networks:
+  aui-lab-network:
+    driver: bridge
+volumes:
+  category-db-data:
+  element-db-data:
