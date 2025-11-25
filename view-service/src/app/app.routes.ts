@@ -3,6 +3,7 @@ import {CategoriesView} from './components/categories-view/categories-view';
 import {CategoryView} from './components/category-view/category-view';
 import {CategoryEditView} from './components/category-edit-view/category-edit-view';
 import {CategoryCreateView} from './components/category-create-view/category-create-view';
+import {ElementView} from './components/element-view/element-view';
 
 export const routes: Routes = [
   {
@@ -20,6 +21,10 @@ export const routes: Routes = [
   {
     path: 'categories/edit/:id',
     component: CategoryEditView,
+  },
+  {
+    path: 'wheelbarrows/:id',
+    component: ElementView
   }
 ];
 
