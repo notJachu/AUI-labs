@@ -8,6 +8,6 @@ RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
-COPY --from=builder /app/target/*.jar ./view-service.jar
+COPY --from=builder /app/target/*.jar ./gateway-service.jar
 EXPOSE 8080
-CMD ["java", "-jar", "view-service.jar"]
+CMD ["java", "-jar", "gateway-service.jar"]
