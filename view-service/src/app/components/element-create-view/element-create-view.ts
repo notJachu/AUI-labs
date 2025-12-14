@@ -23,7 +23,7 @@ export class ElementCreateView {
 
   onSubmit() {
     const categoryId = this.route.snapshot.paramMap.get('id');
-    this.http.post<any>('http://localhost:8080/api/categories/' + categoryId + '/createWheelBarrow', this.element).subscribe(data => {
+    this.http.post<any>('/api/categories/' + categoryId + '/createWheelBarrow', this.element).subscribe(data => {
       this.element = data;
       alert('Element created successfully!');
       this.router.navigate(['/categories/' + categoryId])

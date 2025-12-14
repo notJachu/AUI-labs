@@ -16,10 +16,10 @@
         </div>
       }
     </div>
-    <button class="add-button" routerLink="/categories/{{category.uuid}}/elements/new">Add New Element</button>
   } @else {
     <p>No elements found in this category.</p>
   }
+  <button class="add-button" routerLink="/categories/{{category.uuid}}/elements/new">Add New Element</button>
 } @else {
   <h1>Category not found</h1>
 }
