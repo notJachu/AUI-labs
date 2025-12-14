@@ -72,7 +72,7 @@ services:
 
     environment:
       - SERVER_PORT=8081
-      - WHEELBARROW_SERVICE_URL=http://wheelbarrow-service:8082/api/
+      - WHEELBARROWS_SERVICE_URL=http://wheelbarrow-service:8082/api
 
       # Database configuration
       - SPRING_DATASOURCE_URL=jdbc:postgresql://category-db:5432/category_db
