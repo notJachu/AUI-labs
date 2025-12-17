@@ -38,7 +38,7 @@ services:
     environment:
       - SERVER_PORT=8080
       - SPRING_CLOUD_GATEWAY_SERVER_WEBMVC_ROUTES_0_ID=wheelbarrow_create_service_route
-      - SPRING_CLOUD_GATEWAY_SERVER_WEBMVC_ROUTES_0_URI=http://category-service:8082
+      - SPRING_CLOUD_GATEWAY_SERVER_WEBMVC_ROUTES_0_URI=http://wheelbarrow-service:8082
       - SPRING_CLOUD_GATEWAY_SERVER_WEBMVC_ROUTES_0_PREDICATES_0=Path=/api/categories/{id}/createWheelBarrow
       
       - SPRING_CLOUD_GATEWAY_SERVER_WEBMVC_ROUTES_1_ID=wheelbarrow_service_route
@@ -72,7 +72,7 @@ services:
 
     environment:
       - SERVER_PORT=8081
-      - WHEELBARROW_SERVICE_URL=http://wheelbarrow-service:8082/api/
+      - WHEELBARROWS_SERVICE_URL=http://wheelbarrow-service:8082/api
 
       # Database configuration
       - SPRING_DATASOURCE_URL=jdbc:postgresql://category-db:5432/category_db

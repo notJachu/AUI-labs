@@ -81,6 +81,7 @@ public class CategoryController {
 
         try {
             String eventUrl = wheelBarrowServiceURL + "/categories";
+            System.out.println(eventUrl);
             restTemplate.postForEntity(eventUrl, categorySendDto, Void.class);
         } catch (Exception e) {
             System.err.println("Wheelbarrow Service is not available: " + e.getMessage());

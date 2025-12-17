@@ -23,7 +23,7 @@ export class CategoryEditView {
 
   loadCategory() {
     const categoryId = this.route.snapshot.paramMap.get('id');
-    this.http.get<any>('http://localhost:8080/api/categories/' + categoryId,
+    this.http.get<any>('/api/categories/' + categoryId,
     ).subscribe(data => {
       this.category = data;
     });
@@ -31,7 +31,7 @@ export class CategoryEditView {
 
   onSubmit() {
     const categoryId = this.route.snapshot.paramMap.get('id');
-    this.http.put<any>('http://localhost:8080/api/categories/' + categoryId, this.category).subscribe(data => {
+    this.http.put<any>('/api/categories/' + categoryId, this.category).subscribe(data => {
       this.category = data;
       alert('Category updated successfully!');
       this.router.navigate(['/categories'])

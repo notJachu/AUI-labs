@@ -58,6 +58,7 @@ public class CategoryController {
     // saving category sent from category service
     @PostMapping("")
     public ResponseEntity<Void> addCategory(@RequestBody CategoryCreateUpdateDto categoryDto) {
+        System.out.println("received post from category service");
         Category category = new Category();
         category.setName(categoryDto.getName());
         category.setCarryWeight(categoryDto.getCarryWeight());
@@ -70,7 +71,7 @@ public class CategoryController {
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateCategory(@PathVariable UUID id, @RequestBody CategoryCreateUpdateDto categoryDto) {
         Optional<Category> optionalCategory = categoryService.findById(id);
-
+        System.out.println("received put from category service");
         if (optionalCategory.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
